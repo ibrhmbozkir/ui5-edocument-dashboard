@@ -7,7 +7,7 @@
     "applicationVersion": {
       "version": "0.0.1"
     },
-    "title": "Country / Process Documents",
+    "title": "eDocument Dashboard (Eaglessoft)",
     "description": "Tree (Country -> Process) with documents table using OData mockdata.",
     "dataSources": {
       "mainService": {
