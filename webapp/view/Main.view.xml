@@ -53,7 +53,7 @@
         <f:title>
           <f:DynamicPageTitle>
             <f:heading>
-              <Title text="Country / Process Documents" level="H2"/>
+              <Title text="eDocument Dashboard (Eaglessoft)" level="H2"/>
             </f:heading>
 
             <f:actions>
