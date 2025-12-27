@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+  xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="2.0"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="ZDOCS_SRV"
+      xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="Document">
+        <Key>
+          <PropertyRef Name="DocId"/>
+        </Key>
+        <Property Name="DocId" Type="Edm.String" Nullable="false" MaxLength="20"/>
+        <Property Name="Country" Type="Edm.String" Nullable="false" MaxLength="3"/>
+        <Property Name="Process" Type="Edm.String" Nullable="false" MaxLength="30"/>
+        <Property Name="DocType" Type="Edm.String" Nullable="true" MaxLength="20"/>
+        <Property Name="Status" Type="Edm.String" Nullable="true" MaxLength="20"/>
+        <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="FileName" Type="Edm.String" Nullable="true" MaxLength="100"/>
+      </EntityType>
+
+      <EntityContainer Name="ZDOCS_SRV_Entities" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Documents" EntityType="ZDOCS_SRV.Document"/>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

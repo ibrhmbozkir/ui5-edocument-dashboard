@@ -1,0 +1,200 @@
+/* =========================
+   PAGE + HEADER
+   ========================= */
+.eglDynPage .sapFDynamicPageTitle{
+  border-bottom: 1px solid var(--sapGroup_ContentBorderColor);
+}
+
+.eglToolbar{
+  border-radius: 0.75rem;
+  background: var(--sapList_Background);
+  border: 1px solid var(--sapGroup_ContentBorderColor);
+  padding: 0.5rem;
+}
+
+.eglTable .sapMListTblHeaderCell{
+  font-weight: 600;
+}
+
+/* =========================
+   KPI TILES
+   ========================= */
+.eglKpiTiles{
+  gap: 1rem;
+  padding: .5rem .25rem 1rem .25rem;
+}
+
+.eglTile{
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-width: 230px;
+  background: var(--sapTile_Background);
+  border: 1px solid var(--sapGroup_ContentBorderColor);
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.6);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  cursor: pointer;
+}
+
+.eglTile:hover{
+  transform: translateY(-3px);
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.14),
+    inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.eglTile:active{
+  transform: translateY(-1px) scale(.985);
+}
+
+.eglTile .sapMGTHdrTxt{ font-weight: 600; }
+.eglTile .sapMNCValue{ font-size: 2.1rem; font-weight: 600; }
+.eglTile .sapUiIcon{ opacity: .85; }
+
+.eglTileTotal{
+  border-left: 5px solid #5b7c99;
+  background: linear-gradient(135deg, rgba(91,124,153,.14), rgba(255,255,255,0));
+}
+
+.eglTileError{
+  border-left: 5px solid var(--sapNegativeColor);
+  background: linear-gradient(135deg, rgba(187,0,0,.16), rgba(255,255,255,0));
+}
+.eglTileError .sapMNCValue,
+.eglTileError .sapUiIcon{ color: var(--sapNegativeColor); }
+
+.eglTileSuccess{
+  border-left: 5px solid var(--sapPositiveColor);
+  background: linear-gradient(135deg, rgba(16,126,62,.16), rgba(255,255,255,0));
+}
+.eglTileSuccess .sapMNCValue,
+.eglTileSuccess .sapUiIcon{ color: var(--sapPositiveColor); }
+
+.eglTileWarn{
+  border-left: 5px solid var(--sapCriticalColor);
+  background: linear-gradient(135deg, rgba(223,137,0,.18), rgba(255,255,255,0));
+}
+.eglTileWarn .sapMNCValue,
+.eglTileWarn .sapUiIcon{ color: var(--sapCriticalColor); }
+
+.eglTileReceived{
+  border-left: 5px solid var(--sapCriticalColor);
+  background: linear-gradient(135deg, rgba(8, 86, 146, 0.18), rgba(2, 54, 114, 0));
+}
+.eglTileReceived .sapMNCValue,
+.eglTileReceived .sapUiIcon{ color: var(--sapCriticalColor); }
+
+.eglTile:focus-within{
+  outline: 2px solid var(--sapContent_FocusColor);
+  outline-offset: 2px;
+}
+/* =========================
+   LEFT TREE / SIDE NAV (MODERN + 3 LEVEL)
+   ========================= */
+
+/* Side panel background (yumuşak) */
+.eglToolPage .sapTntToolPageAside,
+.eglSideNav{
+  background: linear-gradient(180deg, rgba(10,110,209,.06), rgba(0,0,0,0)) !important;
+  border-right: 1px solid var(--sapGroup_ContentBorderColor) !important;
+}
+
+/* NavigationList padding */
+#navList.eglNavList{
+  padding: .55rem .45rem .75rem .45rem !important;
+}
+
+/* satırlar arası boşluk */
+#navList.eglNavList li{
+  margin: .18rem .15rem !important;
+}
+
+/* Item yüzeyi (chip gibi) */
+#navList.eglNavList .sapTntNavLIItem{
+  border-radius: 14px !important;
+  transition: background .15s ease, box-shadow .15s ease, transform .15s ease !important;
+}
+
+/* Hover */
+#navList.eglNavList .sapTntNavLIItem:hover{
+  background: rgba(0,0,0,.035) !important;
+}
+
+/* Selected (UI5 farklı class isimleri kullanabiliyor; hepsini yakalıyoruz) */
+#navList.eglNavList .sapTntNavLIItem.sapTntNavLIItemSel,
+#navList.eglNavList .sapTntNavLIItem.sapTntNavLIItemSelected,
+#navList.eglNavList .sapTntNavLIItem[aria-selected="true"]{
+  background: rgba(1, 20, 39, 0.12) !important;
+  box-shadow: inset 0 0 0 2px rgba(10,110,209,.25) !important;
+}
+
+/* Text */
+#navList.eglNavList .sapTntNavLIText{
+  letter-spacing: .2px !important;
+}
+
+/* ===== 3 seviyeyi RENKLENDİR =====
+   Root = ilk item (All)
+   Country = eglNavItemCountry verdiğin item’lar
+   Process = eglNavItemProcess verdiğin item’lar
+*/
+
+/* ROOT (All) – ilk item */
+#navList.eglNavList > ul > li:first-child .sapTntNavLIItem{
+  border-left: 4px solid rgba(91,124,153,.90) !important;
+  background: linear-gradient(90deg, rgba(91,124,153,.10), transparent) !important;
+}
+#navList.eglNavList > ul > li:first-child .sapTntNavLIText{
+  font-weight: 750 !important;
+}
+
+/* COUNTRY */
+#navList.eglNavList .eglNavItemCountry .sapTntNavLIItem{
+  border-left: 4px solid rgba(10,110,209,.85) !important;
+  background: linear-gradient(90deg, rgba(10,110,209,.08), transparent) !important;
+}
+#navList.eglNavList .eglNavItemCountry .sapTntNavLIText{
+  font-weight: 650 !important;
+}
+
+/* PROCESS */
+#navList.eglNavList .eglNavItemProcess{
+  margin-left: 1.0rem !important; /* hiyerarşi hissi */
+  position: relative;
+}
+#navList.eglNavList .eglNavItemProcess .sapTntNavLIItem{
+  border-left: 4px solid rgba(223,137,0,.85) !important;
+  background: linear-gradient(90deg, rgba(223,137,0,.07), transparent) !important;
+}
+#navList.eglNavList .eglNavItemProcess .sapTntNavLIText{
+  font-weight: 520 !important;
+  opacity: .95 !important;
+}
+
+/* Subtle “tree connector” */
+#navList.eglNavList .eglNavItemProcess:before{
+  content: "";
+  position: absolute;
+  left: -0.70rem;
+  top: .35rem;
+  bottom: .35rem;
+  width: 2px;
+  background: rgba(0,0,0,.10);
+  border-radius: 2px;
+}
+
+/* Count badge (info) */
+#navList.eglNavList .sapTntNavLIInfo{
+  border-radius: 999px !important;
+  padding: 0 .55rem !important;
+  font-weight: 700 !important;
+  background: rgba(148,138,122,.06) !important;
+}
+
+/* Expand/collapse icon (ok) */
+#navList.eglNavList .sapTntNavLICollapseExpandIcon,
+#navList.eglNavList .sapTntNavLIExpandIcon{
+  opacity: .7 !important;
+}

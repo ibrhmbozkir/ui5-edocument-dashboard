@@ -1,0 +1,196 @@
+<mvc:View
+  controllerName="project1.controller.Main"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:tnt="sap.tnt">
+
+  <tnt:ToolPage id="toolPage" class="eglToolPage">
+
+    <!-- Sol Menü -->
+    <tnt:sideContent>
+      <tnt:SideNavigation
+        id="sideNav"
+        expanded="true"
+        class="eglSideNav">
+
+        <!-- HIERARCHY: ALL -> COUNTRY -> PROCESS -->
+        <tnt:NavigationList
+          id="navList"
+          class="eglNavItemRoot"
+          items="{nav>/countries}"
+          itemSelect=".onNavSelect">
+
+          <!-- Country (ve ALL) template -->
+          <tnt:NavigationListItem
+            text="{nav>text}"
+            key="{nav>key}"
+            icon="{nav>icon}"
+            class="eglNavItemCountry"
+            expanded="{= ${nav>key} === 'ALL' ? false : true }"
+            items="{nav>processes}">
+
+            <!-- Process template -->
+            <tnt:items>
+              <tnt:NavigationListItem
+                text="{nav>text}"
+                key="{nav>key}"
+                class="eglNavItemProcess"
+                icon="{= ${nav>icon} ? ${nav>icon} : 'sap-icon://chevron-phase' }" />
+            </tnt:items>
+
+          </tnt:NavigationListItem>
+
+        </tnt:NavigationList>
+
+      </tnt:SideNavigation>
+    </tnt:sideContent>
+
+    <!-- Sağ içerik -->
+    <tnt:mainContents>
+      <f:DynamicPage id="dynPage" showFooter="false" class="eglDynPage">
+
+        <f:title>
+          <f:DynamicPageTitle>
+            <f:heading>
+              <Title text="Country / Process Documents" level="H2"/>
+            </f:heading>
+
+            <f:actions>
+              <Button icon="sap-icon://refresh" type="Transparent" press=".onRefresh" tooltip="Refresh"/>
+              <Button icon="sap-icon://action-settings" type="Transparent" press=".onOpenSettings" tooltip="Settings"/>
+            </f:actions>
+
+            <!-- KPI -->
+            <f:expandedContent>
+              <HBox class="eglKpiTiles" renderType="Bare">
+
+                <GenericTile class="eglTile eglTileTotal" header="Total" subheader="Documents" press=".onKpiPress">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <NumericContent value="{view>/kpi/total}" icon="sap-icon://document-text"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <GenericTile class="eglTile eglTileError" header="Errors" subheader="Need attention" press=".onKpiPress">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <NumericContent value="{view>/kpi/error}" icon="sap-icon://message-error"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <GenericTile class="eglTile eglTileSuccess" header="Sent" subheader="Successfully sent" press=".onKpiPress">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <NumericContent value="{view>/kpi/sent}" icon="sap-icon://paper-plane"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <GenericTile class="eglTile eglTileWarn" header="Queued" subheader="Waiting" press=".onKpiPress">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <NumericContent value="{view>/kpi/queued}" icon="sap-icon://pending"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <GenericTile class="eglTile eglTileReceived" header="Received" subheader="Received" press=".onKpiPress">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <NumericContent value="{view>/kpi/received}" icon="sap-icon://inbox"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+              </HBox>
+            </f:expandedContent>
+
+          </f:DynamicPageTitle>
+        </f:title>
+
+        <f:content>
+          <VBox class="sapUiSmallMargin">
+
+            <Toolbar class="eglToolbar" design="Transparent">
+              <Title text="{view>/selectionText}" level="H3"/>
+              <ToolbarSpacer/>
+
+              <SegmentedButton selectedKey="{view>/quickFilter}" selectionChange=".onQuickFilterChange" width="100%" >
+                <items>
+                  <SegmentedButtonItem key="ALL" text="All" icon="sap-icon://list"/>
+                  <SegmentedButtonItem key="ERROR" text="Errors" icon="sap-icon://message-error"/>
+                  <SegmentedButtonItem key="SENT" text="Sent" icon="sap-icon://paper-plane"/>
+                  <SegmentedButtonItem key="CHECK" text="Check" icon="sap-icon://refresh"/>
+                  <SegmentedButtonItem key="CANCEL" text="Cancel" icon="sap-icon://cancel"/>
+                </items>
+              </SegmentedButton>
+
+              <SearchField
+                width="22rem"
+                placeholder="Search DocId, Process, FileName..."
+                liveChange=".onSearch"
+                search=".onSearch"
+                class="sapUiSmallMarginBegin"/>
+            </Toolbar>
+
+            <Table
+              id="tblDocs"
+              items="{path: '/Documents'}"
+              growing="true"
+              growingScrollToLoad="true"
+              sticky="ColumnHeaders"
+              mode="None"
+              class="eglTable"
+              itemPress=".onRowPress">
+
+              <columns>
+                <Column width="10rem"><Text text="DocId"/></Column>
+                <Column width="7rem"><Text text="Country"/></Column>
+                <Column width="10rem"><Text text="Process"/></Column>
+                <Column width="10rem"><Text text="DocType"/></Column>
+                <Column width="8rem"><Text text="Status"/></Column>
+                <Column minScreenWidth="Tablet" demandPopin="true"><Text text="CreatedAt"/></Column>
+              </columns>
+
+              <items>
+                <ColumnListItem type="Active">
+                  <cells>
+                    <VBox>
+                      <ObjectIdentifier title="{DocId}" text="{FileName}"/>
+                    </VBox>
+
+                    <ObjectIdentifier title="{Country}" />
+                    <ObjectIdentifier title="{Process}" />
+                    <ObjectIdentifier title="{DocType}" />
+
+                <ObjectStatus
+                  text="{Status}"
+                  state="{= ${Status} === 'ERROR' ? 'Error' : (${Status} === 'SENT' ? 'Success' : (${Status} === 'QUEUED' ? 'Warning' : 'None')) }" 
+                  icon="{= ${Status} === 'ERROR' ? 'sap-icon://message-error' : (${Status} === 'SENT' ? 'sap-icon://paper-plane' : 'sap-icon://pending') }"/>
+                    <Text text="{CreatedAt}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+
+          </VBox>
+        </f:content>
+
+      </f:DynamicPage>
+    </tnt:mainContents>
+
+  </tnt:ToolPage>
+</mvc:View>

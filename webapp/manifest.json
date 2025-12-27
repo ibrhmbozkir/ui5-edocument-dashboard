@@ -1,0 +1,80 @@
+{
+  "_version": "1.32.0",
+  "sap.app": {
+    "id": "project1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "Country / Process Documents",
+    "description": "Tree (Country -> Process) with documents table using OData mockdata.",
+    "dataSources": {
+      "mainService": {
+        "uri": "/localService/mainService/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/mainService/metadata.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "sap.ui5": {
+  "resources": {
+    "css": [
+      {
+        "uri": "css/style.css"
+      }
+    ]
+  }
+},
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "useBatch": false
+        },
+        "type": "sap.ui.model.odata.v2.ODataModel"
+      },
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project1.i18n.i18n"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "project1.view.Main",
+      "type": "XML",
+      "async": true,
+      "id": "Main"
+    }
+  }
+}
