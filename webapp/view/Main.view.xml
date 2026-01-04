@@ -139,28 +139,36 @@
               class="eglTable"
               itemPress=".onRowPress">
 
-              <columns>
-                <Column width="10rem"><Text text="DocId"/></Column>
-                <Column width="7rem"><Text text="Country"/></Column>
-                <Column width="10rem"><Text text="Process"/></Column>
-                <Column width="10rem"><Text text="DocType"/></Column>
-                <Column width="8rem"><Text text="Status"/></Column>
-                <Column minScreenWidth="Tablet" demandPopin="true"><Text text="CreatedAt"/></Column>
-              </columns>
+<columns>
+  <Column width="10rem"><Text text="DocId"/></Column>
+  <Column width="7rem"><Text text="Country"/></Column>
+  <Column width="10rem"><Text text="Process"/></Column>
+  <Column width="10rem"><Text text="DocType"/></Column>
+  <Column width="8rem"><Text text="Status"/></Column>
+  <Column width="8rem"><Text text="CreatedAt"/></Column>
+    <Column width="16rem"><Text text="FileName"/></Column>
+</columns>
+
 
               <items>
                 <ColumnListItem type="Active">
-                  <cells>
-                    <VBox><ObjectIdentifier title="{DocId}" text="{FileName}"/></VBox>
-                    <ObjectIdentifier title="{Country}" />
-                    <ObjectIdentifier title="{Process}" />
-                    <ObjectIdentifier title="{DocType}" />
-                    <ObjectStatus
-                      text="{Status}"
-                      state="{= ${Status} === 'ERROR' ? 'Error' : (${Status} === 'SENT' ? 'Success' : (${Status} === 'QUEUED' ? 'Warning' : 'None')) }"
-                      icon="{= ${Status} === 'ERROR' ? 'sap-icon://message-error' : (${Status} === 'SENT' ? 'sap-icon://paper-plane' : 'sap-icon://pending') }"/>
-                    <Text text="{CreatedAt}"/>
-                  </cells>
+<cells>
+  <!-- DocId artık sadece DocId -->
+  <ObjectIdentifier title="{DocId}" />
+  <ObjectIdentifier title="{Country}" />
+  <ObjectIdentifier title="{Process}" />
+  <ObjectIdentifier title="{DocType}" />
+
+  <ObjectStatus
+    text="{Status}"
+    state="{= ${Status} === 'ERROR' ? 'Error' : (${Status} === 'SENT' ? 'Success' : (${Status} === 'QUEUED' ? 'Warning' : 'None')) }"
+    icon="{= ${Status} === 'ERROR' ? 'sap-icon://message-error' : (${Status} === 'SENT' ? 'sap-icon://paper-plane' : 'sap-icon://pending') }"/>
+
+  <Text text="{CreatedAt}"/>
+    <!-- FileName ayrı sütunda -->
+<Link text="{FileName}" press=".onFileOpen" tooltip="{FileName}" />
+</cells>
+
                 </ColumnListItem>
               </items>
 
