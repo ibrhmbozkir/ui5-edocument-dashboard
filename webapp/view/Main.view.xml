@@ -3,47 +3,49 @@
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
   xmlns:f="sap.f"
-  xmlns:tnt="sap.tnt">
+  xmlns:tnt="sap.tnt"
+  xmlns:core="sap.ui.core">
 
   <tnt:ToolPage id="toolPage" class="eglToolPage">
 
     <!-- Sol Menü -->
     <tnt:sideContent>
-      <tnt:SideNavigation
-        id="sideNav"
-        expanded="true"
-        class="eglSideNav">
+<tnt:SideNavigation
+  id="sideNav"
+  expanded="true"
+  class="eglSideNav">
 
-        <!-- HIERARCHY: ALL -> COUNTRY -> PROCESS -->
-        <tnt:NavigationList
-          id="navList"
-          class="eglNavItemRoot"
-          items="{nav>/countries}"
-          itemSelect=".onNavSelect">
+  <tnt:NavigationList
+    id="navList"
+    class="eglNavList"
+    items="{nav>/countries}"
+    itemSelect=".onNavSelect">
 
-          <!-- Country (ve ALL) template -->
-          <tnt:NavigationListItem
-            text="{nav>text}"
-            key="{nav>key}"
-            icon="{nav>icon}"
-            class="eglNavItemCountry"
-            expanded="{= ${nav>key} === 'ALL' ? false : true }"
-            items="{nav>processes}">
+    <!-- Country (ve ALL) template -->
+    <tnt:NavigationListItem
+      text="{nav>text}"
+      key="{nav>key}"
+      icon="{nav>icon}"
+      expanded="{= ${nav>key} === 'ALL' ? false : true }"
+      items="{nav>processes}"
+      templateShareable="false">
 
-            <!-- Process template -->
-            <tnt:items>
-              <tnt:NavigationListItem
-                text="{nav>text}"
-                key="{nav>key}"
-                class="eglNavItemProcess"
-                icon="{= ${nav>icon} ? ${nav>icon} : 'sap-icon://chevron-phase' }" />
-            </tnt:items>
+      <!-- Process template -->
+      <tnt:items>
+        <tnt:NavigationListItem
+          text="{nav>text}"
+          key="{nav>key}"
+          icon="{= ${nav>icon} ? ${nav>icon} : 'sap-icon://chevron-phase' }"
+          templateShareable="false" />
+      </tnt:items>
 
-          </tnt:NavigationListItem>
+    </tnt:NavigationListItem>
 
-        </tnt:NavigationList>
+  </tnt:NavigationList>
 
-      </tnt:SideNavigation>
+</tnt:SideNavigation>
+
+
     </tnt:sideContent>
 
     <!-- Sağ içerik -->
@@ -61,58 +63,40 @@
               <Button icon="sap-icon://action-settings" type="Transparent" press=".onOpenSettings" tooltip="Settings"/>
             </f:actions>
 
-            <!-- KPI -->
             <f:expandedContent>
               <HBox class="eglKpiTiles" renderType="Bare">
 
                 <GenericTile class="eglTile eglTileTotal" header="Total" subheader="Documents" press=".onKpiPress">
-                  <tileContent>
-                    <TileContent>
-                      <content>
-                        <NumericContent value="{view>/kpi/total}" icon="sap-icon://document-text"/>
-                      </content>
-                    </TileContent>
-                  </tileContent>
+                  <tileContent><TileContent><content>
+                    <NumericContent value="{view>/kpi/total}" icon="sap-icon://document-text"/>
+                  </content></TileContent></tileContent>
                 </GenericTile>
 
                 <GenericTile class="eglTile eglTileError" header="Errors" subheader="Need attention" press=".onKpiPress">
-                  <tileContent>
-                    <TileContent>
-                      <content>
-                        <NumericContent value="{view>/kpi/error}" icon="sap-icon://message-error"/>
-                      </content>
-                    </TileContent>
-                  </tileContent>
+                  <tileContent><TileContent><content>
+                    <NumericContent value="{view>/kpi/error}" icon="sap-icon://message-error"/>
+                  </content></TileContent></tileContent>
                 </GenericTile>
 
                 <GenericTile class="eglTile eglTileSuccess" header="Sent" subheader="Successfully sent" press=".onKpiPress">
-                  <tileContent>
-                    <TileContent>
-                      <content>
-                        <NumericContent value="{view>/kpi/sent}" icon="sap-icon://paper-plane"/>
-                      </content>
-                    </TileContent>
-                  </tileContent>
+                  <tileContent><TileContent><content>
+                    <NumericContent value="{view>/kpi/sent}" icon="sap-icon://paper-plane"/>
+                  </content></TileContent></tileContent>
                 </GenericTile>
 
                 <GenericTile class="eglTile eglTileWarn" header="Queued" subheader="Waiting" press=".onKpiPress">
-                  <tileContent>
-                    <TileContent>
-                      <content>
-                        <NumericContent value="{view>/kpi/queued}" icon="sap-icon://pending"/>
-                      </content>
-                    </TileContent>
-                  </tileContent>
+                  <tileContent><TileContent><content>
+                    <VBox class="eglQueuedOverlay" renderType="Bare">
+                      <NumericContent value="{view>/kpi/queued}" icon="sap-icon://pending"/>
+                      <core:Icon src="sap-icon://alert" class="eglQueuedBolt" visible="{= ${view>/kpi/queued} !== 0 }"/>
+                    </VBox>
+                  </content></TileContent></tileContent>
                 </GenericTile>
 
                 <GenericTile class="eglTile eglTileReceived" header="Received" subheader="Received" press=".onKpiPress">
-                  <tileContent>
-                    <TileContent>
-                      <content>
-                        <NumericContent value="{view>/kpi/received}" icon="sap-icon://inbox"/>
-                      </content>
-                    </TileContent>
-                  </tileContent>
+                  <tileContent><TileContent><content>
+                    <NumericContent value="{view>/kpi/received}" icon="sap-icon://inbox"/>
+                  </content></TileContent></tileContent>
                 </GenericTile>
 
               </HBox>
@@ -128,7 +112,7 @@
               <Title text="{view>/selectionText}" level="H3"/>
               <ToolbarSpacer/>
 
-              <SegmentedButton selectedKey="{view>/quickFilter}" selectionChange=".onQuickFilterChange" width="100%" >
+              <SegmentedButton selectedKey="{view>/quickFilter}" selectionChange=".onQuickFilterChange" width="100%">
                 <items>
                   <SegmentedButtonItem key="ALL" text="All" icon="sap-icon://list"/>
                   <SegmentedButtonItem key="ERROR" text="Errors" icon="sap-icon://message-error"/>
@@ -138,8 +122,7 @@
                 </items>
               </SegmentedButton>
 
-              <SearchField
-                width="22rem"
+              <SearchField width="22rem"
                 placeholder="Search DocId, Process, FileName..."
                 liveChange=".onSearch"
                 search=".onSearch"
@@ -168,22 +151,19 @@
               <items>
                 <ColumnListItem type="Active">
                   <cells>
-                    <VBox>
-                      <ObjectIdentifier title="{DocId}" text="{FileName}"/>
-                    </VBox>
-
+                    <VBox><ObjectIdentifier title="{DocId}" text="{FileName}"/></VBox>
                     <ObjectIdentifier title="{Country}" />
                     <ObjectIdentifier title="{Process}" />
                     <ObjectIdentifier title="{DocType}" />
-
-                <ObjectStatus
-                  text="{Status}"
-                  state="{= ${Status} === 'ERROR' ? 'Error' : (${Status} === 'SENT' ? 'Success' : (${Status} === 'QUEUED' ? 'Warning' : 'None')) }" 
-                  icon="{= ${Status} === 'ERROR' ? 'sap-icon://message-error' : (${Status} === 'SENT' ? 'sap-icon://paper-plane' : 'sap-icon://pending') }"/>
+                    <ObjectStatus
+                      text="{Status}"
+                      state="{= ${Status} === 'ERROR' ? 'Error' : (${Status} === 'SENT' ? 'Success' : (${Status} === 'QUEUED' ? 'Warning' : 'None')) }"
+                      icon="{= ${Status} === 'ERROR' ? 'sap-icon://message-error' : (${Status} === 'SENT' ? 'sap-icon://paper-plane' : 'sap-icon://pending') }"/>
                     <Text text="{CreatedAt}"/>
                   </cells>
                 </ColumnListItem>
               </items>
+
             </Table>
 
           </VBox>

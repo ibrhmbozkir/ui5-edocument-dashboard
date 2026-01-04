@@ -19,6 +19,7 @@ sap.ui.define([
       this.getView().setModel(this._viewModel, "view");
 
       // ---- Navigation Model (nav>/...) ----
+      // (ÇALIŞAN model: /countries -> country item -> processes)
       this._navModel = new JSONModel({
         selectedKey: "ALL",
         countries: [{
@@ -44,9 +45,7 @@ sap.ui.define([
 
     onRefresh: function () {
       const oBinding = this._getTableBinding();
-      if (oBinding) {
-        oBinding.refresh(true);
-      }
+      if (oBinding) oBinding.refresh(true);
       MessageToast.show("Refreshed");
     },
 
@@ -54,13 +53,11 @@ sap.ui.define([
       MessageToast.show("Settings (demo)");
     },
 
-    // NAV select (Country/Process/All)
     onNavSelect: function (oEvent) {
       const oItem = oEvent.getParameter("item");
       const sKey = oItem ? oItem.getKey() : "ALL";
       this._navModel.setProperty("/selectedKey", sKey);
 
-      // reset
       this._viewModel.setProperty("/quickFilter", "ALL");
       this._lastSearch = "";
 
@@ -108,26 +105,18 @@ sap.ui.define([
     },
 
     onKpiPress: function (oEvent) {
-      const sHeader = oEvent.getSource().getHeader(); // Total / Errors / Sent / Queued / Received
-
+      const sHeader = oEvent.getSource().getHeader();
       this._lastSearch = "";
 
-      if (sHeader === "Errors") {
-        this._viewModel.setProperty("/quickFilter", "ERROR");
-      } else if (sHeader === "Sent") {
-        this._viewModel.setProperty("/quickFilter", "SENT");
-      } else if (sHeader === "Queued") {
-        this._viewModel.setProperty("/quickFilter", "QUEUED");
-      } else if (sHeader === "Received") {
-        this._viewModel.setProperty("/quickFilter", "RECEIVED");
-      } else {
-        this._viewModel.setProperty("/quickFilter", "ALL");
-      }
+      if (sHeader === "Errors") this._viewModel.setProperty("/quickFilter", "ERROR");
+      else if (sHeader === "Sent") this._viewModel.setProperty("/quickFilter", "SENT");
+      else if (sHeader === "Queued") this._viewModel.setProperty("/quickFilter", "QUEUED");
+      else if (sHeader === "Received") this._viewModel.setProperty("/quickFilter", "RECEIVED");
+      else this._viewModel.setProperty("/quickFilter", "ALL");
 
       this._applyFilters(this._currentNodeFilters || []);
     },
 
-    // ---------- Internals ----------
     _getTableBinding: function () {
       const oTable = this.byId("tblDocs");
       return oTable ? oTable.getBinding("items") : null;
@@ -136,13 +125,11 @@ sap.ui.define([
     _applyFilters: function (aNodeFilters) {
       const aFilters = [...(aNodeFilters || [])];
 
-      // Quick filter
       const sQuick = this._viewModel.getProperty("/quickFilter");
       if (sQuick && sQuick !== "ALL") {
         aFilters.push(new Filter("Status", FilterOperator.EQ, sQuick));
       }
 
-      // Search
       if (this._lastSearch) {
         aFilters.push(new Filter({
           filters: [
@@ -164,7 +151,6 @@ sap.ui.define([
 
       const aDocs = oBinding.getCurrentContexts().map(c => c.getObject()).filter(Boolean);
 
-      // Country -> { total, procMap(proc -> count) }
       const countryMap = new Map();
       let total = 0;
 

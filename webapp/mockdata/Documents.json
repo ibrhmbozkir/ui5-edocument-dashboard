@@ -1,19 +1,19 @@
 {
   "d": {
     "results": [
-      { "DocId": "0000000001", "Country": "DE", "Process": "INVOICE_OUT", "DocType": "UBL", "Status": "SENT", "CreatedAt": "/Date(1734739200000)/", "FileName": "de_invoice_0001.xml" },
-      { "DocId": "0000000002", "Country": "DE", "Process": "INVOICE_OUT", "DocType": "XRECHNUNG", "Status": "ERROR", "CreatedAt": "/Date(1734825600000)/", "FileName": "de_invoice_0002.xml" },
-      { "DocId": "0000000003", "Country": "DE", "Process": "ORDER_IN", "DocType": "IDOC", "Status": "RECEIVED", "CreatedAt": "/Date(1734912000000)/", "FileName": "de_order_0003.idoc" },
+      { "DocId": "0000000001", "Country": "Germany", "Process": "Outbound Invoice", "DocType": "UBL", "Status": "SENT", "CreatedAt": "/Date(1734739200000)/", "FileName": "de_invoice_0001.xml" },
+      { "DocId": "0000000002", "Country": "Germany", "Process": "Outbound Invoice", "DocType": "XRECHNUNG", "Status": "ERROR", "CreatedAt": "/Date(1734825600000)/", "FileName": "de_invoice_0002.xml" },
+      { "DocId": "0000000003", "Country": "Germany", "Process": "Inbound Order", "DocType": "IDOC", "Status": "RECEIVED", "CreatedAt": "/Date(1734912000000)/", "FileName": "de_order_0003.idoc" },
 
-      { "DocId": "0000000101", "Country": "TR", "Process": "E_INVOICE", "DocType": "E-FATURA", "Status": "SENT", "CreatedAt": "/Date(1734998400000)/", "FileName": "tr_efatura_0101.xml" },
-      { "DocId": "0000000102", "Country": "TR", "Process": "E_INVOICE", "DocType": "E-ARSIV", "Status": "SENT", "CreatedAt": "/Date(1735084800000)/", "FileName": "tr_earsiv_0102.xml" },
-      { "DocId": "0000000103", "Country": "TR", "Process": "E_WAYBILL", "DocType": "E-IRSALIYE", "Status": "RECEIVED", "CreatedAt": "/Date(1735171200000)/", "FileName": "tr_eirsaliye_0103.xml" },
+      { "DocId": "0000000101", "Country": "Türkiye", "Process": "Outbound Invoice", "DocType": "E-FATURA", "Status": "SENT", "CreatedAt": "/Date(1734998400000)/", "FileName": "tr_efatura_0101.xml" },
+      { "DocId": "0000000102", "Country": "Türkiye", "Process": "Outbound Invoice", "DocType": "E-ARSIV", "Status": "SENT", "CreatedAt": "/Date(1735084800000)/", "FileName": "tr_earsiv_0102.xml" },
+      { "DocId": "0000000103", "Country": "Türkiye", "Process": "Outbound Waybill", "DocType": "E-IRSALIYE", "Status": "RECEIVED", "CreatedAt": "/Date(1735171200000)/", "FileName": "tr_eirsaliye_0103.xml" },
 
-      { "DocId": "0000000201", "Country": "ES", "Process": "SII_REPORT", "DocType": "XML", "Status": "QUEUED", "CreatedAt": "/Date(1735257600000)/", "FileName": "es_sii_0201.xml" },
-      { "DocId": "0000000202", "Country": "ES", "Process": "INVOICE_OUT", "DocType": "UBL", "Status": "SENT", "CreatedAt": "/Date(1735344000000)/", "FileName": "es_invoice_0202.xml" },
+      { "DocId": "0000000201", "Country": "France", "Process": "SII Report", "DocType": "XML", "Status": "QUEUED", "CreatedAt": "/Date(1735257600000)/", "FileName": "es_sii_0201.xml" },
+      { "DocId": "0000000202", "Country": "France", "Process": "Outbound Invoice", "DocType": "UBL", "Status": "SENT", "CreatedAt": "/Date(1735344000000)/", "FileName": "es_invoice_0202.xml" },
 
-      { "DocId": "0000000301", "Country": "IT", "Process": "FATTURA_PA", "DocType": "XML", "Status": "ERROR", "CreatedAt": "/Date(1735430400000)/", "FileName": "it_fattura_0301.xml" },
-      { "DocId": "0000000302", "Country": "IT", "Process": "FATTURA_PA", "DocType": "XML", "Status": "SENT", "CreatedAt": "/Date(1735516800000)/", "FileName": "it_fattura_0302.xml" }
+      { "DocId": "0000000301", "Country": "Italy", "Process": "Fattura PA", "DocType": "XML", "Status": "ERROR", "CreatedAt": "/Date(1735430400000)/", "FileName": "it_fattura_0301.xml" },
+      { "DocId": "0000000302", "Country": "Italy", "Process": "Fattura PA", "DocType": "XML", "Status": "SENT", "CreatedAt": "/Date(1735516800000)/", "FileName": "it_fattura_0302.xml" }
     ]
   }
 }

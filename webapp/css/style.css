@@ -90,111 +90,189 @@
   outline: 2px solid var(--sapContent_FocusColor);
   outline-offset: 2px;
 }
+
 /* =========================
-   LEFT TREE / SIDE NAV (MODERN + 3 LEVEL)
+   LEFT TREE – DARK CRYSTAL BLUE (UI5 TNT NavigationList)
    ========================= */
 
-/* Side panel background (yumuşak) */
+/* Sol panel – koyu kristal mavi cam */
 .eglToolPage .sapTntToolPageAside,
 .eglSideNav{
-  background: linear-gradient(180deg, rgba(10,110,209,.06), rgba(0,0,0,0)) !important;
-  border-right: 1px solid var(--sapGroup_ContentBorderColor) !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(13, 71, 161, 0.92),
+      rgba(13, 71, 161, 0.62),
+      rgba(13, 71, 161, 0.18)
+    ) !important;
+  border-right: 1px solid rgba(30,136,229,.35) !important;
+  box-shadow:
+    inset -1px 0 0 rgba(255,255,255,.14),
+    inset 0 1px 0 rgba(255,255,255,.08);
 }
 
-/* NavigationList padding */
-#navList.eglNavList{
-  padding: .55rem .45rem .75rem .45rem !important;
+/* =========================
+   NAVLIST (DOĞRU DOM SEVİYESİ)
+   Not: UI5 DOM yapısı: li.sapTntNLItem > div.sapTntNLItemWrapper > a.sapTntNLI
+   Biz tüm stil ve indent'i a.sapTntNLI üzerine veriyoruz.
+   ========================= */
+
+/* NavList padding */
+.eglToolPage [id$="--navList"]{
+  padding: .65rem .55rem .9rem .55rem !important;
 }
 
-/* satırlar arası boşluk */
-#navList.eglNavList li{
-  margin: .18rem .15rem !important;
+/* satır aralığı */
+.eglToolPage [id$="--navList"] ul.sapTntNL > li{
+  margin: .16rem .05rem !important;
 }
 
-/* Item yüzeyi (chip gibi) */
-#navList.eglNavList .sapTntNavLIItem{
+/* Item yüzeyi (chip/kristal) -> a.sapTntNLI */
+.eglToolPage [id$="--navList"] li.sapTntNLItem > .sapTntNLItemWrapper > .sapTntNLI{
   border-radius: 14px !important;
-  transition: background .15s ease, box-shadow .15s ease, transform .15s ease !important;
+  background: rgba(255,255,255,.10) !important;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease !important;
 }
 
-/* Hover */
-#navList.eglNavList .sapTntNavLIItem:hover{
-  background: rgba(0,0,0,.035) !important;
+/* Hover – kristal parlama */
+.eglToolPage [id$="--navList"] li.sapTntNLItem:not(.sapTntNLItemSel):hover > .sapTntNLItemWrapper > .sapTntNLI{
+  background: linear-gradient(90deg, rgba(255,255,255,.72), rgba(255,255,255,.38)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    0 6px 14px rgba(13,71,161,.25) !important;
+  transform: translateY(-1px);
 }
 
-/* Selected (UI5 farklı class isimleri kullanabiliyor; hepsini yakalıyoruz) */
-#navList.eglNavList .sapTntNavLIItem.sapTntNavLIItemSel,
-#navList.eglNavList .sapTntNavLIItem.sapTntNavLIItemSelected,
-#navList.eglNavList .sapTntNavLIItem[aria-selected="true"]{
-  background: rgba(1, 20, 39, 0.12) !important;
-  box-shadow: inset 0 0 0 2px rgba(10,110,209,.25) !important;
+/* Selected – parlak kristal */
+.eglToolPage [id$="--navList"] li.sapTntNLItemSel > .sapTntNLItemWrapper > .sapTntNLI,
+.eglToolPage [id$="--navList"] li[aria-selected="true"] > .sapTntNLItemWrapper > .sapTntNLI{
+  background: linear-gradient(90deg, rgba(111, 185, 246, 0.40), rgba(255,255,255,.10)) !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(161, 209, 248, 0.55),
+    0 8px 18px rgba(42, 91, 164, 0.45) !important;
 }
 
-/* Text */
-#navList.eglNavList .sapTntNavLIText{
-  letter-spacing: .2px !important;
+/* Icon rengi (default) */
+.eglToolPage [id$="--navList"] li.sapTntNLItem .sapUiIcon{
+  color: rgba(198, 225, 248, 0.95) !important;
 }
 
-/* ===== 3 seviyeyi RENKLENDİR =====
-   Root = ilk item (All)
-   Country = eglNavItemCountry verdiğin item’lar
-   Process = eglNavItemProcess verdiğin item’lar
-*/
-
-/* ROOT (All) – ilk item */
-#navList.eglNavList > ul > li:first-child .sapTntNavLIItem{
-  border-left: 4px solid rgba(91,124,153,.90) !important;
-  background: linear-gradient(90deg, rgba(91,124,153,.10), transparent) !important;
+/* TREE TEXT -> GOLD (default) */
+.eglToolPage [id$="--navList"] .sapTntNLIText{
+  color: rgba(255, 215, 120, 0.95) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.35) !important;
 }
-#navList.eglNavList > ul > li:first-child .sapTntNavLIText{
+
+/* Hover: text/icon koyu olsun */
+.eglToolPage [id$="--navList"] li.sapTntNLItem:hover .sapTntNLIText{
+  color: rgba(10, 20, 35, .95) !important;
+  text-shadow: none !important;
+}
+.eglToolPage [id$="--navList"] li.sapTntNLItem:hover .sapUiIcon{
+  color: rgba(10, 20, 35, .85) !important;
+}
+
+/* Selected item text + icon */
+.eglToolPage [id$="--navList"] li.sapTntNLItemSel .sapTntNLIText,
+.eglToolPage [id$="--navList"] li[aria-selected="true"] .sapTntNLIText{
+  color: rgba(255, 240, 190, 1) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.35) !important;
+}
+.eglToolPage [id$="--navList"] li.sapTntNLItemSel .sapUiIcon,
+.eglToolPage [id$="--navList"] li[aria-selected="true"] .sapUiIcon{
+  color: rgba(235, 245, 255, 0.95) !important;
+}
+
+/* Badge (count) */
+.eglToolPage [id$="--navList"] .sapTntNLItemInfo{
+  background: rgba(255,255,255,.28) !important;
+  color: rgba(237, 180, 7, 0.95) !important;
   font-weight: 750 !important;
+  border-radius: 999px !important;
+  padding: 0 .55rem !important;
+}
+
+/* Expand/Collapse icon - asla kaybolmasın */
+.eglToolPage [id$="--navList"] .sapTntNLIExpandIcon,
+.eglToolPage [id$="--navList"] .sapTntNLICollapseIcon{
+  display: inline-block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  color: rgba(187, 222, 251, 0.95) !important;
+}
+
+/* =========================
+   3 LEVEL RENKLER + INDENT
+   (class NavigationListItem -> li'ye uygulanır)
+   ========================= */
+
+/* ROOT */
+.eglToolPage [id$="--navList"] li.eglNavItemRoot > .sapTntNLItemWrapper > .sapTntNLI{
+  border-left: 4px solid #9dcff8 !important;
+  background: linear-gradient(90deg, rgba(164, 211, 250, 0.36), rgba(255,255,255,.08)) !important;
+  padding-left: 0.75rem !important;
+}
+.eglToolPage [id$="--navList"] li.eglNavItemRoot .sapTntNLIText{
+  font-weight: 760 !important;
 }
 
 /* COUNTRY */
-#navList.eglNavList .eglNavItemCountry .sapTntNavLIItem{
-  border-left: 4px solid rgba(10,110,209,.85) !important;
-  background: linear-gradient(90deg, rgba(10,110,209,.08), transparent) !important;
+.eglToolPage [id$="--navList"] li.eglNavItemCountry > .sapTntNLItemWrapper > .sapTntNLI{
+  border-left: 4px solid #42a5f5 !important;
+  background: linear-gradient(90deg, rgba(66,165,245,.30), rgba(255,255,255,.06)) !important;
+  padding-left: 2.00rem !important;
 }
-#navList.eglNavList .eglNavItemCountry .sapTntNavLIText{
-  font-weight: 650 !important;
+.eglToolPage [id$="--navList"] li.eglNavItemCountry .sapTntNLIText{
+  font-weight: 660 !important;
 }
 
 /* PROCESS */
-#navList.eglNavList .eglNavItemProcess{
-  margin-left: 1.0rem !important; /* hiyerarşi hissi */
+.eglToolPage [id$="--navList"] li.eglNavItemProcess{
   position: relative;
 }
-#navList.eglNavList .eglNavItemProcess .sapTntNavLIItem{
-  border-left: 4px solid rgba(223,137,0,.85) !important;
-  background: linear-gradient(90deg, rgba(223,137,0,.07), transparent) !important;
+.eglToolPage [id$="--navList"] li.eglNavItemProcess > .sapTntNLItemWrapper > .sapTntNLI{
+  border-left: 4px solid #b0dcf0 !important;
+  background: linear-gradient(90deg, rgba(41,182,246,.24), rgba(255,255,255,.05)) !important;
+  padding-left: 3.25rem !important;
 }
-#navList.eglNavList .eglNavItemProcess .sapTntNavLIText{
-  font-weight: 520 !important;
-  opacity: .95 !important;
+.eglToolPage [id$="--navList"] li.eglNavItemProcess .sapTntNLIText{
+  font-weight: 540 !important;
+  opacity: .96 !important;
 }
 
-/* Subtle “tree connector” */
-#navList.eglNavList .eglNavItemProcess:before{
+/* PROCESS bağlantı çizgisi */
+.eglToolPage [id$="--navList"] li.eglNavItemProcess:before{
   content: "";
   position: absolute;
-  left: -0.70rem;
+  left: .45rem;
   top: .35rem;
   bottom: .35rem;
   width: 2px;
-  background: rgba(0,0,0,.10);
+  background: linear-gradient(180deg, rgba(144,202,249,.95), rgba(144,202,249,.20));
   border-radius: 2px;
 }
 
-/* Count badge (info) */
-#navList.eglNavList .sapTntNavLIInfo{
-  border-radius: 999px !important;
-  padding: 0 .55rem !important;
-  font-weight: 700 !important;
-  background: rgba(148,138,122,.06) !important;
+/* =========================
+   QUEUED tile overlay
+   ========================= */
+.eglQueuedOverlay{ position: relative; }
+
+.eglQueuedBolt{
+  position: absolute;
+  top: .45rem;
+  right: .55rem;
+  font-size: 2.05rem;
+  color: rgba(255, 215, 120, .95);
+  text-shadow: 0 2px 8px rgba(0,0,0,.35);
+  opacity: .95;
+  pointer-events: none;
+}
+/* Güvenlik: child list görünür kalsın */
+.eglToolPage [id$="--navList"] ul.sapTntNL{
+  display: block !important;
 }
 
-/* Expand/collapse icon (ok) */
-#navList.eglNavList .sapTntNavLICollapseExpandIcon,
-#navList.eglNavList .sapTntNavLIExpandIcon{
-  opacity: .7 !important;
+/* Country altındaki child UL için de aynı */
+.eglToolPage [id$="--navList"] li.sapTntNLItem ul.sapTntNL{
+  display: block !important;
 }
